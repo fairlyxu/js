@@ -1,0 +1,41 @@
+<html>
+<head>
+   <meta contentType = "text/html" charset = "utf-8">
+	<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="js/CaluModel.js"></script>
+<script type="text/javascript" src="js/CaluView.js"></script>
+<script type="text/javascript" src="js/CaluControl.js"></script>
+<style type="text/css">
+	table {
+		margin: auto;
+	}
+	td{
+		width:66px; 
+		height: 36px; 
+		text-align: center;
+		border:1px dotted #000;
+		background-color: #FFFFFF;
+	}
+	.number{
+		background-color: rgba(255, 240, 245, 1)
+	}
+	.ac, .back{
+		background-color: rgba(255, 159, 168, 1)
+	}
+	.opt, .equ{
+		background-color: rgba(241, 255, 146, 1)
+	}
+	</style>
+	<script type="text/javascript">
+	$(document).ready(function(){
+		var calu = new CaluControl();
+		$('body').append(calu.render())
+	})
+
+	</script>
+
+</head>
+<body>
+
+</body>
+</html>

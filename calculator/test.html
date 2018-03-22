@@ -1,0 +1,157 @@
+<html>
+<html>
+<head>
+   <meta contentType = "text/html" charset = "utf-8">
+	<script type="text/javascript" src="http://ajax.microsoft.com/ajax/jquery
+/jquery-1.4.min.js"></script>
+	<style type="text/css">
+td{
+	width:40px; 
+	border:1px dotted #000;
+	background-color: #FFFFFF;
+}
+	</style>
+	<script type="text/javascript">
+	var optnum1,optnum2,resultnum;
+	var status = 1; // 状态1 表示输入第一个操作数  2表示已经输入操作符  3  表示输出结果
+	var operator ; 
+	var inputBox ;
+	var outputBox ;
+	var resultBox ;
+
+	function add(num1,num2){
+		return num1 + num2;
+	}
+
+	function minus(num1, num2){
+		return (num1 - num2);
+	}
+
+	function mult(num1, num2){
+		return num1 * num2;
+	}
+
+	function divi(num1, num2){
+		return num1 / num2;
+	}
+	function resetText(status){
+		switch(status){
+			case 1 :
+			    inputBox.val("");
+			    outputBox.val("");
+			    resultBox.val("");
+				break;
+			case 2 : 
+			    outputBox.val(inputBox.val()+operator);
+			    inputBox.val("");
+				break;
+			case 3:
+				outputBox.val(outputBox.val()+inputBox.val());
+			    inputBox.val("");
+			    resultBox.val(resultnum);
+			    break;
+			default :
+				break ;
+		}
+	}
+
+	function calu(opt){
+		var result;
+		switch(opt){
+			case "+" :
+			    result = add(optnum1, optnum2);
+				break;
+			case "-" :
+			    result = minus(optnum1, optnum2);
+			break;
+			case "*" :
+			    result = mult(optnum1, optnum2);
+			break;
+			case "/" :
+				result = divi(optnum1, optnum2);
+			break;
+			default :
+			break ;
+		}
+
+		if(isNaN(result) ){
+			result = "input error" ;
+		}
+		return result;
+
+	}
+
+	$(document).ready(function(){
+		inputBox = $(".input");
+	    outputBox = $(".output");
+	    resultBox = $(".result");
+		resetText(1);
+		$(".opt").click(function(){
+			optnum1 = parseFloat(inputBox.val());
+			operator = this.innerHTML;
+			status = 2;
+			resetText(2); //esetText(status);
+			console.log(operator);
+		});
+
+		$("td.number").click(function(){
+			var newInput = $(".input").val() + this.innerHTML ;
+			inputBox.val(newInput);
+			console.log(this.innerHTML);
+		});
+
+		$("td.equ").click(function(){
+			optnum2 = parseFloat($(".input").val());
+			resultnum = calu(operator);
+			resetText(3);
+			status = 1 ;
+		});
+
+		$(".back").click(function(){
+			var temp = inputBox.val()
+			if(temp && temp.length > 1){
+				temp = temp.substring(0, temp.length - 1);
+			}
+			else{
+				temp = "";
+			}
+			inputBox.val(temp);
+
+		})
+	});
+
+	</script>
+
+</head>
+<body>
+	<input type = "text"  class = "output" readonly>
+	输入：<input type = "text"  class = "input" >
+<table>
+<tr><td class="number">1</td><td class ="number">2</td>
+
+<td class ="number">3</td><td class ="number">4</td>
+</tr>
+
+<tr><td class ="number">5</td><td class ="number">6</td>
+<td class = "number">7</td><td class ="number">8</td>
+</tr>
+<tr><td class = "number">9</td><td class ="number">0</td>
+</tr>
+
+<tr><td class = "opt">+</td><td class ="opt">-</td>
+
+<td class = "opt">*</td><td class ="opt">/</td>
+</tr>
+<tr><td class = "opt">%</td><td class ="back"><--</td>
+</tr>
+
+<tr><td class ="equ">=</td>
+</tr>
+<tr></tr>
+
+</table>
+ 计算结果：<input type = "text"  class = "result" readonly>
+
+
+</body>
+</html>
